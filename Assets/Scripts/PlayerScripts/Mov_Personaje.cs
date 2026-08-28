@@ -26,7 +26,7 @@ public class Mov_Personaje : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
     private float _pitch;
     private Vector2 _look;
-    private float _lookSensitivity = 3f;
+    private float _lookSensitivity = 10f;
 
     //------------------
     //Variables propias
