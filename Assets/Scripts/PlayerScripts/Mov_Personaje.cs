@@ -3,91 +3,80 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInput))]
-
 public class Mov_Personaje : MonoBehaviour
 {
-    //---------------------
-    //Configuracion
-    //---------------------
-
-
-
     [Header("Movimiento")]
     [SerializeField] private float _normalSpeed = 7f;
     [SerializeField] private float _sprintSpeed = 10f;
 
-    [Header("Gravedad")]
+    [Header("Salto y Gravedad")]
     [SerializeField] private float _gravity = -9.8f;
-   
+    [SerializeField] private float _jumpHeight = 3f;
 
-   
-
-    [Header("Camara: modo hijo")]
+    [Header("Camara")]
     [SerializeField] private Transform _cameraTransform;
-    private float _pitch;
-    private Vector2 _look;
-    private float _lookSensitivity = 10f;
+    [SerializeField] private bool _shouldFaceMoveDirection = false;
 
-    //------------------
-    //Variables propias
-    //------------------
+
 
     private CharacterController _controller;
+
     private float _speed;
     private Vector2 _move;
-    private float _rotate;
     private float _verticalVelocity;
-  
-
-    //-------
-    //Metodos
-    //-------
-
 
     private void Awake()
     {
         _controller = GetComponent<CharacterController>();
+
+        if (_cameraTransform == null)
+        {
+            _cameraTransform = Camera.main.transform;
+        }
     }
-    
-    void Start()
+
+    private void Start()
     {
         _speed = _normalSpeed;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
         HandleMovement();
-        HandleLook();
     }
-
 
     private void HandleMovement()
     {
-        Vector3 move = transform.forward * _move.y + transform.right * _move.x;
+        Vector3 forward = _cameraTransform.forward;
+        Vector3 right = _cameraTransform.right;
 
-        move = move.normalized * _speed;
+        forward.y = 0f;
+        right.y = 0f;
 
-        if (_controller.isGrounded && _verticalVelocity < 0)
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 moveDirection = forward * _move.y + right * _move.x;
+        _controller.Move(moveDirection * _speed * Time.deltaTime);
+
+        if (_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
         {
-            _verticalVelocity = -2f;
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 10f
+            );
         }
 
-        _verticalVelocity += _gravity * Time.deltaTime;
-        move.y = _verticalVelocity;
-        _controller.Move(move * Time.deltaTime);
     }
 
-    private void HandleLook()
-    {
-        float mouseX = _look.x * _lookSensitivity * Time.deltaTime;
-        float mouseY = _look.y * _lookSensitivity * Time.deltaTime;
-        transform.Rotate(Vector3.up * mouseX);
-        _pitch -= mouseY;
-        _pitch = Mathf.Clamp(_pitch, -90f, 90f);
-        _cameraTransform.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
-    }
+    
+     
+    
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -106,10 +95,12 @@ public class Mov_Personaje : MonoBehaviour
         }
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        
-        _look = context.ReadValue<Vector2>();
+        if (context.started && _controller.isGrounded)
+        {
+            _verticalVelocity =
+                Mathf.Sqrt(_jumpHeight * -2f * _gravity);
+        }
     }
-
 }

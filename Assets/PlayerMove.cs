@@ -111,15 +111,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""ToggleFlashlight"",
-                    ""type"": ""Button"",
-                    ""id"": ""06ad7c80-7170-473d-9c3b-c8beb6736ed2"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""04c5f56c-1f0d-4179-be48-12a2bff91068"",
@@ -141,15 +132,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""name"": ""ThrowObject"",
                     ""type"": ""Button"",
                     ""id"": ""71cfbf50-8dff-452e-b87a-0a8c3b57ec80"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""qteAction"",
-                    ""type"": ""Button"",
-                    ""id"": ""f19fd496-75d1-4200-b24f-0f539dfe4612"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -291,50 +273,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a00b9cd3-cf83-44dc-85c9-21fcd06f390f"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""fc6fd460-91ba-4c80-a3af-e7457bb14db8"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a2d5adb5-95ea-4889-ad9f-314780ef01c0"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""761e1c78-c2b1-44fc-9eaf-d81350351eb5"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleFlashlight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e258312d-5953-431e-b483-4baf7af779c5"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -368,23 +306,12 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d869875f-237a-40dc-9d08-070b26fcfd1c"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""608b0fe3-b27f-4f16-874d-460ed05017e0"",
+                    ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""qteAction"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5ba31528-a978-47b1-baaf-eee1f8ae5167"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""qteAction"",
+                    ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -397,11 +324,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
-        m_Player_ToggleFlashlight = m_Player.FindAction("ToggleFlashlight", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_ThrowObject = m_Player.FindAction("ThrowObject", throwIfNotFound: true);
-        m_Player_qteAction = m_Player.FindAction("qteAction", throwIfNotFound: true);
     }
 
     ~@PlayerMove()
@@ -484,11 +409,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
-    private readonly InputAction m_Player_ToggleFlashlight;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_ThrowObject;
-    private readonly InputAction m_Player_qteAction;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -509,10 +432,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Look => m_Wrapper.m_Player_Look;
         /// <summary>
-        /// Provides access to the underlying input action "Player/ToggleFlashlight".
-        /// </summary>
-        public InputAction @ToggleFlashlight => m_Wrapper.m_Player_ToggleFlashlight;
-        /// <summary>
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
@@ -524,10 +443,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ThrowObject".
         /// </summary>
         public InputAction @ThrowObject => m_Wrapper.m_Player_ThrowObject;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/qteAction".
-        /// </summary>
-        public InputAction @qteAction => m_Wrapper.m_Player_qteAction;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -560,9 +475,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
-            @ToggleFlashlight.started += instance.OnToggleFlashlight;
-            @ToggleFlashlight.performed += instance.OnToggleFlashlight;
-            @ToggleFlashlight.canceled += instance.OnToggleFlashlight;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -572,9 +484,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @ThrowObject.started += instance.OnThrowObject;
             @ThrowObject.performed += instance.OnThrowObject;
             @ThrowObject.canceled += instance.OnThrowObject;
-            @qteAction.started += instance.OnQteAction;
-            @qteAction.performed += instance.OnQteAction;
-            @qteAction.canceled += instance.OnQteAction;
         }
 
         /// <summary>
@@ -592,9 +501,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
-            @ToggleFlashlight.started -= instance.OnToggleFlashlight;
-            @ToggleFlashlight.performed -= instance.OnToggleFlashlight;
-            @ToggleFlashlight.canceled -= instance.OnToggleFlashlight;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -604,9 +510,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @ThrowObject.started -= instance.OnThrowObject;
             @ThrowObject.performed -= instance.OnThrowObject;
             @ThrowObject.canceled -= instance.OnThrowObject;
-            @qteAction.started -= instance.OnQteAction;
-            @qteAction.performed -= instance.OnQteAction;
-            @qteAction.canceled -= instance.OnQteAction;
         }
 
         /// <summary>
@@ -662,13 +565,6 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLook(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "ToggleFlashlight" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnToggleFlashlight(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -689,12 +585,5 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnThrowObject(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "qteAction" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnQteAction(InputAction.CallbackContext context);
     }
 }
