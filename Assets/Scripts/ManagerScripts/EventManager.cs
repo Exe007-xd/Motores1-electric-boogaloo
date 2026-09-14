@@ -3,23 +3,11 @@ using UnityEngine;
 
 public static class EventManager
 {
-    public static Action onTaskStarted;
-    public static Action onTaskEnded;
-    public static Action onTaskCancelled;
+    public static event Action TaskStarted;
+    public static event Action TaskEnded;
+    public static event Action TaskCancelled;
 
-    public static void OnTaskStarted()
-    {
-        onTaskStarted?.Invoke();
-    }
-
-    public static void OnTaskEnded()
-    {
-        onTaskEnded?.Invoke();
-    }
-
-    public static void OnTaskCancelled()
-    {
-        onTaskCancelled?.Invoke();
-    }
-
+    public static void RaiseTaskStarted() => TaskStarted?.Invoke();
+    public static void RaiseTaskEnded() => TaskEnded?.Invoke();
+    public static void RaiseTaskCancelled() => TaskCancelled?.Invoke();
 }

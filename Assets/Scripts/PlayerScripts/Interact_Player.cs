@@ -5,9 +5,8 @@ public class Player_Interact : MonoBehaviour
 {
     private float _interactRange = 6f;
     [SerializeField] private Camera _playerCamera;
-    //--------------------------------------------
-    //Metodo para que el jugador pueda interactuar
-    //--------------------------------------------
+    [SerializeField] private LayerMask _interactLayerMask;
+
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -17,14 +16,14 @@ public class Player_Interact : MonoBehaviour
             Vector3 direction = _playerCamera.transform.forward;
 
             Debug.DrawRay(origin, direction * _interactRange, Color.red, 1f);
-            if (Physics.Raycast(origin, direction, out hit, _interactRange))
+            if (Physics.Raycast(origin, direction, out hit, _interactRange, _interactLayerMask))
             {
-                IInteractable interactable =
-                    hit.collider.GetComponent<IInteractable>();
-
+                IInteractable interactable = hit.collider?.GetComponent<IInteractable>();
                 if (interactable != null)
                 {
-                    interactable.Interact();
+                    // Obtiene la interfaz IInteractor del jugador (este componente o cualquier otro)
+                    IInteractor interactor = GetComponent<IInteractor>();
+                    interactable.Interact(interactor);
                 }
             }
         }

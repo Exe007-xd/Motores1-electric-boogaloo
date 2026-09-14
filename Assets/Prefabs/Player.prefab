@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 5351160828690897851}
   - component: {fileID: 3217218566571031218}
   - component: {fileID: 8282905533240230292}
+  - component: {fileID: 4599828856629219401}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -645,10 +646,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f027835a8d1eb374ea0ad2e7ec0f3b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interact_Player
-  interactionRange: 3
-  interactableLayer:
+  _playerCamera: {fileID: 0}
+  _interactLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  playerCamera: {fileID: 0}
-  interactionPrompt: {fileID: 0}
-  interactionText: {fileID: 0}
+--- !u!114 &4599828856629219401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213133677832634930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4136eb83f6161b4ca711cc90a6d3252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_Inventory
+  ui: {fileID: 0}
+  droppedItemPrefab: {fileID: 4122315345749798147, guid: adcb276803813df46ade4e0681fe55e5, type: 3}
+  inventory:
+    m_Keys: []
+    m_Values: []
