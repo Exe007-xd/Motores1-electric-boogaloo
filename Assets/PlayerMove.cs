@@ -296,7 +296,7 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9c36163e-5790-4059-8424-14a830189288"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
