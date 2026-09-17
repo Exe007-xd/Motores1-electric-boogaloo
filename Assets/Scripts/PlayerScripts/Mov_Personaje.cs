@@ -62,6 +62,7 @@ public class Mov_Personaje : MonoBehaviour
         Vector3 moveDirection = forward * _move.y + right * _move.x;
         _controller.Move(moveDirection * _speed * Time.deltaTime);
 
+
         if (_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
@@ -71,6 +72,7 @@ public class Mov_Personaje : MonoBehaviour
                 Time.deltaTime * 10f
             );
         }
+        
 
     }
 
