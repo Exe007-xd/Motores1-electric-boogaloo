@@ -136,6 +136,15 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenCheckList"",
+                    ""type"": ""Button"",
+                    ""id"": ""6fdb0576-2342-4330-94d9-cbe9e2da3f99"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -314,6 +323,45 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52b98595-04eb-4a86-9b28-6e3976103d2a"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCheckList"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Minigame"",
+            ""id"": ""d19afa55-3df3-44b9-aba4-8db1edb1e509"",
+            ""actions"": [
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""727aaab3-7a7b-4cbe-80a8-884cb569e9cd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""868e1191-d23d-4e78-b53a-82355a49f825"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -327,11 +375,16 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_ThrowObject = m_Player.FindAction("ThrowObject", throwIfNotFound: true);
+        m_Player_OpenCheckList = m_Player.FindAction("OpenCheckList", throwIfNotFound: true);
+        // Minigame
+        m_Minigame = asset.FindActionMap("Minigame", throwIfNotFound: true);
+        m_Minigame_Cancel = m_Minigame.FindAction("Cancel", throwIfNotFound: true);
     }
 
     ~@PlayerMove()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerMove.Player.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Minigame.enabled, "This will cause a leak and performance issues, PlayerMove.Minigame.Disable() has not been called.");
     }
 
     /// <summary>
@@ -412,6 +465,7 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_ThrowObject;
+    private readonly InputAction m_Player_OpenCheckList;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -443,6 +497,10 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/ThrowObject".
         /// </summary>
         public InputAction @ThrowObject => m_Wrapper.m_Player_ThrowObject;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/OpenCheckList".
+        /// </summary>
+        public InputAction @OpenCheckList => m_Wrapper.m_Player_OpenCheckList;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -484,6 +542,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @ThrowObject.started += instance.OnThrowObject;
             @ThrowObject.performed += instance.OnThrowObject;
             @ThrowObject.canceled += instance.OnThrowObject;
+            @OpenCheckList.started += instance.OnOpenCheckList;
+            @OpenCheckList.performed += instance.OnOpenCheckList;
+            @OpenCheckList.canceled += instance.OnOpenCheckList;
         }
 
         /// <summary>
@@ -510,6 +571,9 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
             @ThrowObject.started -= instance.OnThrowObject;
             @ThrowObject.performed -= instance.OnThrowObject;
             @ThrowObject.canceled -= instance.OnThrowObject;
+            @OpenCheckList.started -= instance.OnOpenCheckList;
+            @OpenCheckList.performed -= instance.OnOpenCheckList;
+            @OpenCheckList.canceled -= instance.OnOpenCheckList;
         }
 
         /// <summary>
@@ -543,6 +607,102 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="PlayerActions" /> instance referencing this action map.
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
+
+    // Minigame
+    private readonly InputActionMap m_Minigame;
+    private List<IMinigameActions> m_MinigameActionsCallbackInterfaces = new List<IMinigameActions>();
+    private readonly InputAction m_Minigame_Cancel;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "Minigame".
+    /// </summary>
+    public struct MinigameActions
+    {
+        private @PlayerMove m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public MinigameActions(@PlayerMove wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "Minigame/Cancel".
+        /// </summary>
+        public InputAction @Cancel => m_Wrapper.m_Minigame_Cancel;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_Minigame; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="MinigameActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(MinigameActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="MinigameActions" />
+        public void AddCallbacks(IMinigameActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MinigameActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MinigameActionsCallbackInterfaces.Add(instance);
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="MinigameActions" />
+        private void UnregisterCallbacks(IMinigameActions instance)
+        {
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MinigameActions.UnregisterCallbacks(IMinigameActions)" />.
+        /// </summary>
+        /// <seealso cref="MinigameActions.UnregisterCallbacks(IMinigameActions)" />
+        public void RemoveCallbacks(IMinigameActions instance)
+        {
+            if (m_Wrapper.m_MinigameActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="MinigameActions.AddCallbacks(IMinigameActions)" />
+        /// <seealso cref="MinigameActions.RemoveCallbacks(IMinigameActions)" />
+        /// <seealso cref="MinigameActions.UnregisterCallbacks(IMinigameActions)" />
+        public void SetCallbacks(IMinigameActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MinigameActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MinigameActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="MinigameActions" /> instance referencing this action map.
+    /// </summary>
+    public MinigameActions @Minigame => new MinigameActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -585,5 +745,27 @@ public partial class @PlayerMove: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnThrowObject(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenCheckList" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenCheckList(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Minigame" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="MinigameActions.AddCallbacks(IMinigameActions)" />
+    /// <seealso cref="MinigameActions.RemoveCallbacks(IMinigameActions)" />
+    public interface IMinigameActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Cancel" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCancel(InputAction.CallbackContext context);
     }
 }
