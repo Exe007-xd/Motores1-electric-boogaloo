@@ -39,7 +39,7 @@
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ShapeComponent.SettingsEnabled",
-                "value": "{\"m_Value\":false}"
+                "value": "{\"m_Value\":true}"
             },
             {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
@@ -79,12 +79,12 @@
             {
                 "type": "System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "ShapeBuilder.ActiveShapeIndex",
-                "value": "{\"m_Value\":1}"
+                "value": "{\"m_Value\":6}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Cube",
-                "value": "{\"m_Value\":{\"x\":-1.264050841331482,\"y\":1.883678674697876,\"z\":5.633509635925293}}"
+                "value": "{\"m_Value\":{\"x\":0.46007728576660159,\"y\":6.211095809936523,\"z\":4.283977031707764}}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -104,7 +104,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize.Door",
-                "value": "{\"m_Value\":{\"x\":0.4427335262298584,\"y\":4.436007976531982,\"z\":-4.354802131652832}}"
+                "value": "{\"m_Value\":{\"x\":2.542644739151001,\"y\":4.0700883865356449,\"z\":6.1293721199035648}}"
             },
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

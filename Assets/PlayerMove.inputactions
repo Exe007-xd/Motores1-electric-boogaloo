@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenCheckList",
+                    "type": "Button",
+                    "id": "6fdb0576-2342-4330-94d9-cbe9e2da3f99",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -226,6 +235,45 @@
                     "processors": "",
                     "groups": "",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52b98595-04eb-4a86-9b28-6e3976103d2a",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenCheckList",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Minigame",
+            "id": "d19afa55-3df3-44b9-aba4-8db1edb1e509",
+            "actions": [
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "727aaab3-7a7b-4cbe-80a8-884cb569e9cd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "868e1191-d23d-4e78-b53a-82355a49f825",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
