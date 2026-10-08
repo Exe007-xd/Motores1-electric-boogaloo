@@ -329,14 +329,14 @@ MonoBehaviour:
   Radius: 5
   Orbits:
     Top:
-      Radius: 4
+      Radius: 3.46
       Height: 2.81
     Center:
       Radius: 4
       Height: 1.2
     Bottom:
-      Radius: 4
-      Height: 0.1
+      Radius: 2.63
+      Height: -0.05
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 5351160828690897851}
   - component: {fileID: 3217218566571031218}
   - component: {fileID: 8282905533240230292}
+  - component: {fileID: 4849357886178922509}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -610,6 +611,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 71cfbf50-8dff-452e-b87a-0a8c3b57ec80
     m_ActionName: 'Player/ThrowObject[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6fdb0576-2342-4330-94d9-cbe9e2da3f99
+    m_ActionName: 'Player/OpenCheckList[/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 727aaab3-7a7b-4cbe-80a8-884cb569e9cd
+    m_ActionName: 'Minigame/Cancel[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -645,10 +654,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f027835a8d1eb374ea0ad2e7ec0f3b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interact_Player
-  interactionRange: 3
-  interactableLayer:
+  _playerCamera: {fileID: 0}
+  _interactLayerMask:
     serializedVersion: 2
     m_Bits: 0
-  playerCamera: {fileID: 0}
-  interactionPrompt: {fileID: 0}
-  interactionText: {fileID: 0}
+--- !u!195 &4849357886178922509
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5213133677832634930}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
