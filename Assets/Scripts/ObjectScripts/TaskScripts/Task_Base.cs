@@ -9,11 +9,15 @@ public abstract class Task_Base : MonoBehaviour
     [SerializeField] private int rewardPoints = 0;
     protected bool isTaskCompleted = false;
 
+    [Header("Zona")]
+    [SerializeField] private string zoneId; // ID de la zona asociada a esta tarea
+
     public string TaskId => string.IsNullOrEmpty(taskId) ? gameObject.name : taskId;
     public string TaskName => string.IsNullOrEmpty(taskName) ? TaskId : taskName;
     public string TaskDescription => string.IsNullOrEmpty(taskDescription) ? string.Empty : taskDescription;
     public int RewardPoints => rewardPoints;
     public bool IsTaskCompleted => isTaskCompleted;
+    public string ZoneId => string.IsNullOrEmpty(zoneId) ? "DefaultZone" : zoneId;
 
     private void OnEnable()
     {

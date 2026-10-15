@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4232050112016525372}
   - component: {fileID: 7504775413792471918}
   - component: {fileID: 8281451726279197278}
+  - component: {fileID: 5673834821378135205}
   m_Layer: 7
   m_Name: RoastedChicken
   m_TagString: Untagged
@@ -114,3 +115,16 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5673834821378135205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6279003394939602522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee5f1994b514a24db652ca82a57b639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Chicken_Entity
+  ItemDefinition: {fileID: 11400000, guid: 5b2fb49ee0980fa46ab84511be0b0c2e, type: 2}
