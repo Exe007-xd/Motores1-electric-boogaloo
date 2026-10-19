@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FinishStation : MonoBehaviour
+public class FinishStation : MonoBehaviour, IInteractable
 {
     [SerializeField] private Task_Chicken task;
     
