@@ -59,9 +59,21 @@ public class Mov_Personaje : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDirection = forward * _move.y + right * _move.x;
-        _controller.Move(moveDirection * _speed * Time.deltaTime);
+        // Aplicar gravedad
+        bool isGrounded = _controller.isGrounded;
+        if (isGrounded && _verticalVelocity < 0f)
+        {
+            // pequeño valor negativo para "pegar" al suelo y permitir detectar isGrounded correctamente
+            _verticalVelocity = -2f;
+        }
 
+        _verticalVelocity += _gravity * Time.deltaTime;
+        Vector3 moveDirection = forward * _move.y + right * _move.x;
+
+        // Combinar movimiento horizontal con velocidad vertical
+        Vector3 velocity = moveDirection * _speed + Vector3.up * _verticalVelocity;
+
+        _controller.Move(velocity * Time.deltaTime);
 
         if (_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
         {
@@ -72,13 +84,10 @@ public class Mov_Personaje : MonoBehaviour
                 Time.deltaTime * 10f
             );
         }
+
         
-
     }
-
-    
-     
-    
+  
 
     public void OnMove(InputAction.CallbackContext context)
     {
