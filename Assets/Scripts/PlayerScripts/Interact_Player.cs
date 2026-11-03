@@ -18,6 +18,11 @@ public class Player_Interact : MonoBehaviour
 
         Vector3 origin = _playerCamera.transform.position;
         Vector3 direction = _playerCamera.transform.forward;
+        Debug.DrawRay(
+        _playerCamera.transform.position,
+        _playerCamera.transform.forward * _interactRange,
+        Color.red
+        );
 
         if (Physics.Raycast(origin, direction, out hit, _interactRange, _interactLayerMask))
         {

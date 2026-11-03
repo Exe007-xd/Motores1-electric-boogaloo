@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1928358707359195505}
   - component: {fileID: 7339050729258063042}
   - component: {fileID: -6138038800998367423}
+  - component: {fileID: -2427351375498588198}
   m_Layer: 7
   m_Name: Chicken
   m_TagString: Untagged
@@ -131,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chicken_Entity
   ItemDefinition: {fileID: 11400000, guid: d5de9fb8f04b5dc469f56c72d05c836b, type: 2}
+  GlowObject: {fileID: -2427351375498588198}
 --- !u!114 &1928358707359195505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,3 +272,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2427351375498588198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7620057994601592410}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Outline
+  outlineMode: 1
+  outlineColor: {r: 0.07058824, g: 1, b: 1, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
