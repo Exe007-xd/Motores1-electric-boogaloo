@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Objeto que da el item inicial (chicken) y notifica a Task_Chicken.
@@ -8,7 +9,7 @@ public class Chicken_Giver : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemDefinition itemToGive;
     [SerializeField] private Task_Chicken taskToNotify;
-
+    [SerializeField] private Outline glowObject;
     public void Interact()
     {
         if (itemToGive == null)
@@ -32,5 +33,14 @@ public class Chicken_Giver : MonoBehaviour, IInteractable
         {
             Debug.Log("No se pudo recoger el pollo: inventario lleno.");
         }
+    }
+
+    public void OnFocus()
+    {
+        glowObject.enabled = true;
+    }
+    public void OnLoseFocus()
+    {
+        glowObject.enabled = false;
     }
 }

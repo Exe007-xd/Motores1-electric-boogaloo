@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   displayName: Chicken
   icon: {fileID: 0}
-  worldPrefab: {fileID: 7620057994601592410, guid: 88a8cbea6e8a8d24ea4c27e5e0783064, type: 3}
+  worldPrefab: {fileID: 6433293810320044800, guid: 251df5321e827bc42836d2398fb1b990, type: 3}

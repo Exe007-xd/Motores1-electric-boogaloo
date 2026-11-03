@@ -17,6 +17,8 @@ public class CableButton : MonoBehaviour
     private Button button;
     private CablesMinigameManager manager;
     private Image background;
+    [SerializeField] private Image connection;
+    
 
     public void Initialize(CablesMinigameManager manager)
     {
@@ -43,8 +45,10 @@ public class CableButton : MonoBehaviour
     public void SetMatched()
     {
         IsMatched = true;
+        connection.gameObject.SetActive(true);
         if (background != null) background.color = matchedColor;
         // Desactivar interacción visualmente
         if (button != null) button.interactable = false;
+        
     }
 }

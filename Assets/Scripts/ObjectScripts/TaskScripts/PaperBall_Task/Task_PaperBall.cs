@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Task_PaperBall : Task_Base, IInteractable
 {
@@ -6,7 +7,7 @@ public class Task_PaperBall : Task_Base, IInteractable
     [SerializeField] private int requiredAmount = 3;
     [SerializeField] private string deliverMessage = "Paperball entregada";
     private int _currentAmount = 0;
-
+    [SerializeField] private Outline glowObject;
 
     public void Interact() 
     {
@@ -50,7 +51,13 @@ public class Task_PaperBall : Task_Base, IInteractable
             Debug.Log("No tienes el item requerido para entregar.");
         }
     }
-
-
+    public void OnFocus()
+    {
+        glowObject.enabled = true;
+    }
+    public void OnLoseFocus()
+    {
+        glowObject.enabled = false;
+    }
 
 }

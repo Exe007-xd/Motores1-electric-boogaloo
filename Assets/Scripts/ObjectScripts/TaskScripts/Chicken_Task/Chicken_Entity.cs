@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chicken_Entity : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemDefinition ItemDefinition;
+    [SerializeField] private Outline GlowObject;
 
     public void Interact() 
     {
@@ -28,5 +30,14 @@ public class Chicken_Entity : MonoBehaviour, IInteractable
             Debug.Log("No se pudo recoger el pollo: inventario lleno");
         }
 
+    }
+
+    public void OnFocus()
+    {       
+        GlowObject.enabled = true;
+    }
+    public void OnLoseFocus()
+    {
+        GlowObject.enabled = false;
     }
 }

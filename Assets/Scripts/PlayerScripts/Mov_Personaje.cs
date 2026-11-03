@@ -24,6 +24,7 @@ public class Mov_Personaje : MonoBehaviour
     private float _speed;
     private Vector2 _move;
     private float _verticalVelocity;
+    [SerializeField] Animator animator;
 
     private void Awake()
     {
@@ -38,7 +39,8 @@ public class Mov_Personaje : MonoBehaviour
     private void Start()
     {
         _speed = _normalSpeed;
-
+        animator.SetBool("IsWalking", false);
+        animator.SetBool("IsRunning", false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -84,14 +86,15 @@ public class Mov_Personaje : MonoBehaviour
                 Time.deltaTime * 10f
             );
         }
-
         
+
     }
   
 
     public void OnMove(InputAction.CallbackContext context)
     {
         _move = context.ReadValue<Vector2>();
+        animator.SetBool("IsWalking", true);
     }
 
     public void OnSprint(InputAction.CallbackContext context)
@@ -99,10 +102,12 @@ public class Mov_Personaje : MonoBehaviour
         if (context.started)
         {
             _speed = _sprintSpeed;
+            animator.SetBool("IsRunning", true);
         }
         else if (context.canceled)
         {
             _speed = _normalSpeed;
+            animator.SetBool("IsRunning", false);
         }
     }
 

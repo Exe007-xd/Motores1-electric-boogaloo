@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Pickup que utiliza exclusivamente ItemDefinition.
@@ -7,6 +8,7 @@ using UnityEngine;
 public class PickupItem : MonoBehaviour, IInteractable
 {
     [SerializeField] private ItemDefinition itemDefinition;
+    [SerializeField] private Outline glowObject;
 
     public void Interact()
     {
@@ -31,5 +33,14 @@ public class PickupItem : MonoBehaviour, IInteractable
         {
             Debug.Log("No se pudo recoger el item (ya llevas uno o error).");
         }
+    }
+
+    public void OnFocus()
+    {
+        glowObject.enabled = true;
+    }
+    public void OnLoseFocus()
+    {
+        glowObject.enabled = false;
     }
 }
