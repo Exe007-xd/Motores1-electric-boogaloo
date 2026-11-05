@@ -37,10 +37,16 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     public void OnFocus()
     {
-        glowObject.enabled = true;
+        if (glowObject != null)
+        {
+            glowObject.enabled = true;
+        }
     }
     public void OnLoseFocus()
     {
-        glowObject.enabled = false;
+        if (glowObject != null)
+        {
+            glowObject.enabled = false;
+        }
     }
 }

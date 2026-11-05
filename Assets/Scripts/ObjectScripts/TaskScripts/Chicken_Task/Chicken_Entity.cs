@@ -34,10 +34,16 @@ public class Chicken_Entity : MonoBehaviour, IInteractable
 
     public void OnFocus()
     {       
-        GlowObject.enabled = true;
+        if (GlowObject != null)
+        {
+            GlowObject.enabled = true;
+        }
     }
     public void OnLoseFocus()
     {
-        GlowObject.enabled = false;
+        if (GlowObject != null) 
+        {
+            GlowObject.enabled = false;
+        }
     }
 }

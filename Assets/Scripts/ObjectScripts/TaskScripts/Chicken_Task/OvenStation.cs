@@ -5,10 +5,15 @@ public class OvenStation : MonoBehaviour, IInteractable
 {
     [SerializeField] private Task_Chicken task;
     [SerializeField] private Outline glowObject; 
+  
     public void Interact()
     {
         if (task == null) Debug.LogWarning("OvenStation: falta referencia a Task_Chicken");
-        else task.PlaceLiveInRoaster();
+        else 
+        {
+            task.PlaceLiveInRoaster();
+         
+        }
     }
     public void OnFocus()
     {

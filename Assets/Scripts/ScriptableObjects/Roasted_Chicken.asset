@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   displayName: Roasted chicken
   icon: {fileID: 0}
-  worldPrefab: {fileID: 6279003394939602522, guid: 1b89c95d8ba4dbd409a657b44fb6f801, type: 3}
+  worldPrefab: {fileID: 7595032069861296336, guid: fff23c2eddc49ee44bc2a5822484df5a, type: 3}

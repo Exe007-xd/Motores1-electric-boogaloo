@@ -12,6 +12,7 @@ public class Task_cables : Task_Base, IInteractable
     [SerializeField] private CinemachineVirtualCameraBase minigameVcam; // opcional: vcam que se activará mientras dure el minijuego
     [SerializeField] private int vcamPriorityBoost = 20;
     [SerializeField] private Outline glowObject;
+    [SerializeField] private new AudioSource audio;
 
     private bool minigameRunning = false; 
     private int originalVcamPriority;
@@ -25,9 +26,15 @@ public class Task_cables : Task_Base, IInteractable
             Debug.LogWarning("No hay MinigameManager asignado en Task_cables.");
             return;
         }
-
+        audio.Play();
         // Guardar estado y arrancar minijuego
         minigameRunning = true;
+        if (UIMessageManager.Instance != null)
+        {
+            UIMessageManager.Instance.ShowMessage(
+                "Conecta los cables correctamente."
+            );
+        }
         StartTask();
 
         if (minigameVcam != null)

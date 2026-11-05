@@ -17,7 +17,9 @@ public class Mov_Personaje : MonoBehaviour
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private bool _shouldFaceMoveDirection = false;
 
-
+    [Header("Sonidos")]
+    [SerializeField] private AudioSource footstepSource;
+    [SerializeField] private AudioClip[] footstepClips;
 
     private CharacterController _controller;
 
@@ -61,23 +63,27 @@ public class Mov_Personaje : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
-        // Aplicar gravedad
         bool isGrounded = _controller.isGrounded;
+
         if (isGrounded && _verticalVelocity < 0f)
         {
-            // pequeño valor negativo para "pegar" al suelo y permitir detectar isGrounded correctamente
             _verticalVelocity = -2f;
         }
 
         _verticalVelocity += _gravity * Time.deltaTime;
+
         Vector3 moveDirection = forward * _move.y + right * _move.x;
 
-        // Combinar movimiento horizontal con velocidad vertical
+        // Animaciones
+        bool isMoving = moveDirection.sqrMagnitude > 0.01f;
+        animator.SetBool("IsWalking", isMoving);
+        animator.SetBool("IsRunning", isMoving && _speed == _sprintSpeed);
+
         Vector3 velocity = moveDirection * _speed + Vector3.up * _verticalVelocity;
 
         _controller.Move(velocity * Time.deltaTime);
 
-        if (_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
+        if (_shouldFaceMoveDirection && isMoving)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
             transform.rotation = Quaternion.Slerp(
@@ -86,15 +92,12 @@ public class Mov_Personaje : MonoBehaviour
                 Time.deltaTime * 10f
             );
         }
-        
-
     }
-  
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
         _move = context.ReadValue<Vector2>();
-        animator.SetBool("IsWalking", true);
     }
 
     public void OnSprint(InputAction.CallbackContext context)
@@ -118,5 +121,17 @@ public class Mov_Personaje : MonoBehaviour
             _verticalVelocity =
                 Mathf.Sqrt(_jumpHeight * -2f * _gravity);
         }
+    }
+
+    public void PlayFootstep()
+    {
+        if (!_controller.isGrounded)
+            return;
+
+        if (footstepSource == null || footstepClips.Length == 0)
+            return;
+
+        AudioClip clip = footstepClips[Random.Range(0, footstepClips.Length)];
+        footstepSource.PlayOneShot(clip);
     }
 }

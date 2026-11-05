@@ -32,16 +32,31 @@ public abstract class Task_Base : MonoBehaviour
     public void StartTask()
     {
         isTaskCompleted = false;
-        Debug.Log("Task started: " + TaskId);
+
+        if (UIMessageManager.Instance != null)
+        {
+            UIMessageManager.Instance.ShowMessage(
+                $"Tarea iniciada: {TaskName}"
+            );
+        }
+
         EventManager.RaiseTaskUpdated(TaskId, TaskStatus.InProgress);
     }
 
     public void OnTaskFinished()
     {
         isTaskCompleted = true;
-        Debug.Log("Task completed: " + TaskId);
+
+        if (UIMessageManager.Instance != null)
+        {
+            UIMessageManager.Instance.ShowMessage(
+                $"Tarea completada: {TaskName}"
+            );
+        }
+
         EventManager.RaiseTaskUpdated(TaskId, TaskStatus.Completed);
     }
+
 
 
 }

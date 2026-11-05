@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDefinition
   displayName: PaperBall
   icon: {fileID: 0}
-  worldPrefab: {fileID: 1733493355154311727, guid: a7ec81b4fc070084eb2ed7b85f356816, type: 3}
+  worldPrefab: {fileID: 2019268624506898885, guid: de48355d6b46c654ab89d9fd7bd83533, type: 3}

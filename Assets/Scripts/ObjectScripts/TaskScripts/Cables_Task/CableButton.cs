@@ -10,6 +10,7 @@ public class CableButton : MonoBehaviour
     public Color matchedColor = Color.green;
     public Color normalColor = Color.white;
     public Color selectedColor = Color.yellow;
+    [SerializeField] private new AudioSource audio; 
 
     // Estado
     public bool IsMatched { get; private set; } = false;
@@ -45,10 +46,10 @@ public class CableButton : MonoBehaviour
     public void SetMatched()
     {
         IsMatched = true;
+        audio.Play();
         connection.gameObject.SetActive(true);
         if (background != null) background.color = matchedColor;
         // Desactivar interacción visualmente
         if (button != null) button.interactable = false;
-        
     }
 }

@@ -8,6 +8,7 @@ public class Task_PaperBall : Task_Base, IInteractable
     [SerializeField] private string deliverMessage = "Paperball entregada";
     private int _currentAmount = 0;
     [SerializeField] private Outline glowObject;
+    [SerializeField] private new AudioSource audio;
 
     public void Interact() 
     {
@@ -33,8 +34,9 @@ public class Task_PaperBall : Task_Base, IInteractable
 
         if (consumed)
         {
+            audio.Play();
             _currentAmount++;
-            Debug.Log($"{deliverMessage} ({_currentAmount}/{requiredAmount})");
+            Debug.Log($"{deliverMessage} ({_currentAmount}/{requiredAmount})");      
 
             if (_currentAmount == 1)
             {
@@ -53,11 +55,17 @@ public class Task_PaperBall : Task_Base, IInteractable
     }
     public void OnFocus()
     {
-        glowObject.enabled = true;
+        if (glowObject != null)
+        {
+            glowObject.enabled = true;
+        }
     }
     public void OnLoseFocus()
     {
-        glowObject.enabled = false;
+        if (glowObject != null)
+        {
+            glowObject.enabled = false;
+        }
     }
 
 }
