@@ -6,7 +6,6 @@ public class ChecklistItem : MonoBehaviour
 {
     [SerializeField] internal TMP_Text nameText;
     [SerializeField] internal TMP_Text descriptionText;
-    [SerializeField] internal Image statusDot; // opcional, colorea según estado
 
     public void Setup(string taskId, string displayName, string description, TaskStatus status)
     {
@@ -16,23 +15,19 @@ public class ChecklistItem : MonoBehaviour
     }
 
     public void UpdateStatus(TaskStatus status)
-    {      
+    {
+        bool completed = status == TaskStatus.Completed;
 
-        if (statusDot != null)
+        if (nameText != null)
         {
-            switch (status)
-            {
-                case TaskStatus.ToDo:
-                    statusDot.color = Color.gray;
-                    break;
-                case TaskStatus.InProgress:
-                    statusDot.color = Color.yellow;
-                    break;
-                case TaskStatus.Completed:
-                    statusDot.color = Color.green;
-                    break;
-               
-            }
+            string text = nameText.text.Replace("<s>", "").Replace("</s>", "");
+            nameText.text = completed ? $"<s>{text}</s>" : text;
+        }
+
+        if (descriptionText != null)
+        {
+            string text = descriptionText.text.Replace("<s>", "").Replace("</s>", "");
+            descriptionText.text = completed ? $"<s>{text}</s>" : text;
         }
     }
 }

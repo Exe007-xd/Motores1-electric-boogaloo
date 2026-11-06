@@ -15,8 +15,11 @@ public class Chicken_Movement : MonoBehaviour
     [SerializeField] private Transform playerTransform; // si se deja vacío, busca por tag "Player"
     [SerializeField] private float detectionRadius = 4f;
     [SerializeField] private float fleeDistance = 6f;
-    [SerializeField] private float fleeSpeedMultiplier = 1.5f;
+    [SerializeField] private float fleeSpeedMultiplier = 1.75f;
     [SerializeField] private float stopFleeMultiplier = 1.25f; // cuando el jugador esté a > detectionRadius * este valor, deja de huir
+
+    [Header("Partículas")]
+    [SerializeField] private ParticleSystem fleeParticles;
 
     private NavMeshAgent agent;
     private State currentState = State.Roaming;
@@ -88,6 +91,10 @@ public class Chicken_Movement : MonoBehaviour
     {
         currentState = State.Roaming;
         agent.speed = currentBaseSpeed;
+
+        if (fleeParticles != null && fleeParticles.isPlaying)
+            fleeParticles.Stop();
+
         if (wanderCoroutine != null) StopCoroutine(wanderCoroutine);
         wanderCoroutine = StartCoroutine(WanderRoutine());
     }
@@ -96,7 +103,12 @@ public class Chicken_Movement : MonoBehaviour
     {
         currentState = State.Fleeing;
         if (wanderCoroutine != null) StopCoroutine(wanderCoroutine);
+
         agent.speed = currentBaseSpeed * fleeSpeedMultiplier;
+
+        if (fleeParticles != null && !fleeParticles.isPlaying)
+            fleeParticles.Play();
+
         SetFleeDestination();
     }
 
