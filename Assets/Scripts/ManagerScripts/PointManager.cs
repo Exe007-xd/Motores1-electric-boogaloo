@@ -38,15 +38,19 @@ public class PointManager : MonoBehaviour
 
     private void OnTaskUpdated(string taskId, TaskStatus status)
     {
-        if (status == TaskStatus.Completed) return;
+        if (status != TaskStatus.Completed)
+            return;
 
         var task = Task_Registry.GetTaskById(taskId);
-        if (task != null) return;
 
-        int reward = task.RewardPoints;
-        if (reward > 0) AddPoints(reward);
+        if (task == null)
+            return;
 
+        AddPoints(task.RewardPoints);
 
+        UIMessageManager.Instance.ShowMessage(
+                $"+{task.RewardPoints} puntos. Total: {totalPoints}");
+        
     }
 
     void AddPoints(int amount)

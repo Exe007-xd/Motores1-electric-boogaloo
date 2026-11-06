@@ -18,6 +18,7 @@ public class Task_Chicken : Task_Base
     [SerializeField] private AudioSource audioHorno;
     [SerializeField] private Mov_Personaje playerMovement;
     [SerializeField] private Chicken_Movement chickenMovement;
+    [SerializeField] private EndingManager endingManager;
 
     private enum Stage { NotStarted, HasRaw, RawPlaced, LiveSpawned, LiveDeliveredToRoaster, RoastedReady, Completed }
     private Stage stage = Stage.NotStarted;
@@ -74,7 +75,9 @@ public class Task_Chicken : Task_Base
         }
         else
         {
-            Debug.Log("No tienes el pollo crudo en el inventario.");
+            UIMessageManager.Instance.ShowMessage(
+                "No tengo el pollo en el inventario."
+            );
         }
     }
 
@@ -233,7 +236,7 @@ public class Task_Chicken : Task_Base
         {
             OnTaskFinished();
             stage = Stage.Completed;
-            
+            endingManager.TriggerEnding();
         }
         else
         {
